@@ -79,7 +79,9 @@ def publish(client, message):
 stop = False  
 
 sensors = secrets['SENSORS0'].split(",") if sys.argv[1] == "0" else secrets['SENSORS1'].split(",") 
+topic = topic + "/cage-0" if sys.argv[1] == "0" else "/cage-1"
 print(sensors)
+print(topic)
 print(sys.argv[1])
 
 if __name__ == "__main__":
@@ -111,4 +113,6 @@ if __name__ == "__main__":
         temp = round(temp * K + t * k)
         print(temp)
         publish(client,temp)
+        
     logging.info("Stopping...")
+    publish(client,"99999")
