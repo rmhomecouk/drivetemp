@@ -79,7 +79,7 @@ def publish(client, message):
 stop = False  
 
 sensors = secrets['SENSORS0'].split(",") if sys.argv[1] == "0" else secrets['SENSORS1'].split(",") 
-topic = topic + "/cage-0" if sys.argv[1] == "0" else "/cage-1"
+topic = topic + ("/cage-0" if sys.argv[1] == "0" else "/cage-1")
 print(sensors)
 print(topic)
 print(sys.argv[1])
