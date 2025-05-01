@@ -80,9 +80,10 @@ stop = False
 
 sensors = secrets['SENSORS0'].split(",") if sys.argv[1] == "0" else secrets['SENSORS1'].split(",") 
 topic = topic + ("/cage-0" if sys.argv[1] == "0" else "/cage-1")
-print(sensors)
-print(topic)
-print(sys.argv[1])
+
+logging.info("Sensors: %s", sensors)
+logging.info("Topic: %s", topic)
+logging.info("Drivecage: %s", sys.argv[1])
 
 if __name__ == "__main__":
     logging.info("Starting...")
