@@ -17,6 +17,8 @@ cp drivetemp-drive-host-1.service /etc/systemd/system/
 mkdir /opt/drivetemp
 cp -avr * /opt/drivetemp/
 
+chmod +x /opt/drivetemp/drivetemp-drive-host.py
+
 systemctl enable drivetemp-drive-host-0.service
 systemctl enable drivetemp-drive-host-1.service
 
