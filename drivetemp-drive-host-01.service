@@ -1,0 +1,11 @@
+[Unit]
+Description=Send drive cage temperatures via MQTT
+After = network.target
+
+[Service]
+ExecStart=/drivetemp/drivetemp-drive-host.py 1
+Restart=always
+RestartSec=1s
+
+[Install]
+WantedBy = multi-user.target
