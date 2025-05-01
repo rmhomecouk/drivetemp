@@ -27,6 +27,9 @@ points = 10 # smoothing decay time in points
 
 sensors = [] # list of sensors for the drivecage
 
+sensors = secrets['SENSORS0'].split(",") if sys.argv[1] == "0" else secrets['SENSORS1'].split(",") 
+topic = topic + ("/cage-0" if sys.argv[1] == "0" else "/cage-1")
+
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
     # For paho-mqtt 2.0.0, you need to add the properties parameter.
@@ -77,9 +80,6 @@ def publish(client, message):
         logging.error("Failed to send message to topic %s", topic)
     
 stop = False  
-
-sensors = secrets['SENSORS0'].split(",") if sys.argv[1] == "0" else secrets['SENSORS1'].split(",") 
-topic = topic + ("/cage-0" if sys.argv[1] == "0" else "/cage-1")
 
 logging.info("Sensors: %s", sensors)
 logging.info("Topic: %s", topic)
