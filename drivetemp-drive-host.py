@@ -4,7 +4,7 @@ import time, os, random, logging, signal, sys
 from paho.mqtt import client as mqtt_client
 from dotenv import dotenv_values
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARN)
 
 secrets = dotenv_values(".env")
 
@@ -37,7 +37,7 @@ def connect_mqtt():
         if rc == 0:
             logging.info("Connected to MQTT Broker!")
         else:
-            logging.info("Failed to connect, return code %d\n", rc)
+            logging.error("Failed to connect, return code %d\n", rc)
     # Set Connecting Client ID
     client = mqtt_client.Client(mqtt_client.CallbackAPIVersion.VERSION1,client_id)
 
@@ -51,7 +51,7 @@ def connect_mqtt():
     return client
 
 def on_disconnect(client, userdata, rc):
-    logging.info("Disconnected with result code: %s", rc)
+    logging.warn("Disconnected with result code: %s", rc)
     reconnect_count, reconnect_delay = 0, FIRST_RECONNECT_DELAY
     while reconnect_count < MAX_RECONNECT_COUNT:
         logging.info("Reconnecting in %d seconds...", reconnect_delay)
@@ -67,7 +67,7 @@ def on_disconnect(client, userdata, rc):
         reconnect_delay *= RECONNECT_RATE
         reconnect_delay = min(reconnect_delay, MAX_RECONNECT_DELAY)
         reconnect_count += 1
-    logging.info("Reconnect failed after %s attempts. Exiting...", reconnect_count)
+    logging.error("Reconnect failed after %s attempts. Exiting...", reconnect_count)
 
 def publish(client, message):
     msg = f"{message}"
