@@ -7,6 +7,7 @@ systemctl stop drivetemp-fancontrol-host.service
 systemctl disable drivetemp-fancontrol-host.service
 
 rm /etc/systemd/system/drivetemp-fancontrol-host.service
+rm -R /opt/drivetemp
 
 cp drivetemp-fancontrol-host.service /etc/systemd/system/
 

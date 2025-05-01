@@ -10,6 +10,7 @@ systemctl disable drivetemp-drive-host-1.service
 
 rm /etc/systemd/system/drivetemp-drive-host-0.service
 rm /etc/systemd/system/drivetemp-drive-host-1.service
+rm -R /opt/drivetemp
 
 cp drivetemp-drive-host-0.service /etc/systemd/system/
 cp drivetemp-drive-host-1.service /etc/systemd/system/
