@@ -1,0 +1,12 @@
+[Unit]
+Description=Send drive cage temperatures via MQTT
+After = network.target
+
+[Service]
+WorkingDirectory=/opt/drivetemp
+ExecStart=/opt/drivetemp/drivetemp-fancontrol-host.py
+Restart=always
+RestartSec=1s
+
+[Install]
+WantedBy = multi-user.target

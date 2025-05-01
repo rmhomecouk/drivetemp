@@ -25,14 +25,10 @@ stop = False
 dt = 10    # time interval between measurement points
 points = 10 # smoothing decay time in points
 
-sensors = [] # list of sensors for the drivecage
+outfile_cage0 = os.path.expanduser("/var/tmp/drivetemp-cage-0.txt")
+outfile_cage1 = os.path.expanduser("/var/tmp/drivetemp-cage-1.txt")
 
-sensors = secrets['SENSORS0'].split(",") if sys.argv[1] == "0" else secrets['SENSORS1'].split(",") 
-topic = topic + ("/cage-0" if sys.argv[1] == "0" else "/cage-1")
-
-logging.info("Sensors: %s", sensors)
 logging.info("Topic: %s", topic)
-logging.info("Drivecage: %s", sys.argv[1])
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -50,9 +46,28 @@ def connect_mqtt():
 
     client.username_pw_set(username, password)
     client.on_connect = on_connect
-    client.will_set(topic, payload="99999", qos=1, retain=True)
-    client.connect(broker, port)
+    client.connect(broker, port)    
+    client.on_message = on_message
+    client.subscribe('drivetemp/cage-0')
+    client.subscribe('drivetemp/cage-1')
     return client
+
+def on_message(client, userdata, msg):
+    logging.info(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+    if msg.topic == 'drivetemp/cage-0':            
+        if not os.path.exists(outfile_cage0):
+            open(outfile_cage0, "w").close()
+        myfile = open(outfile_cage0,'r+')
+        myfile.seek(0)
+        myfile.write(str(int(msg.payload.decode())) + "\n\n")
+        myfile.truncate()
+    if msg.topic == 'drivetemp/cage-1':            
+        if not os.path.exists(outfile_cage1):
+            open(outfile_cage1, "w").close()
+        myfile = open(outfile_cage1,'r+')
+        myfile.seek(0)
+        myfile.write(str(int(msg.payload.decode())) + "\n\n")
+        myfile.truncate()
 
 def on_disconnect(client, userdata, rc):
     logging.warn("Disconnected with result code: %s", rc)
@@ -73,25 +88,9 @@ def on_disconnect(client, userdata, rc):
         reconnect_count += 1
     logging.error("Reconnect failed after %s attempts. Exiting...", reconnect_count)
 
-def publish(client, message):
-    msg = f"{message}"
-    result = client.publish(topic, msg)
-    # result: [0, 1]
-    status = result[0]
-    if status == 0:
-        logging.info("Message sent successfully to %s: %s", topic, msg)
-    else:
-        logging.error("Failed to send message to topic %s", topic)
-    
-
 if __name__ == "__main__":
     logging.info("Starting...")
-    
-    k = 1. / points
-    K = 1 - k
-    k = k / len(sensors)
-    temp = int(open(sensors[0]).read())
-    
+
     def sighandler(signum, frame):
         global stop
         stop = True
@@ -107,12 +106,5 @@ if __name__ == "__main__":
                
     while not stop:    
         time.sleep(dt)
-        t = 0
-        for s in sensors:
-            t += int(open(s).read())
-        temp = round(temp * K + t * k)
-        logging.info("Temperature: %s", temp)
-        publish(client,temp)
         
     logging.info("Stopping...")
-    publish(client,"99999")
