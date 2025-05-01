@@ -5,11 +5,12 @@ Python services to monitor drive temperatures and pass to the fancontrol host vi
 ## drivetemp-drive-host.py
 
 Used to read the drivetemp values and send to MQTT
+Required the "drivetemp" kernel module to be loaded.
 
 
-## drivetemp-fancontrol.py
+## drivetemp-fancontrol-host.py
 
-Used to subscribe to the MQTT values and set the temperature for fancontrol
+Used to subscribe to the MQTT values and set the temperature for fancontrol in a txt file at /var/tmp
 
 
 ## fancontrol
