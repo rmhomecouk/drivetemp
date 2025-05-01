@@ -111,7 +111,7 @@ if __name__ == "__main__":
         for s in sensors:
             t += int(open(s).read())
         temp = round(temp * K + t * k)
-        print(temp)
+        logging.info("Temperature: %s", temp)
         publish(client,temp)
         
     logging.info("Stopping...")
