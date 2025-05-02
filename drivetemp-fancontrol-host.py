@@ -7,8 +7,7 @@ from dotenv import dotenv_values
 secrets = dotenv_values(".env")
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-logging.setLevel(secrets["LOG_LEVEL"])
+logging.getLogger().setLevel(secrets["LOG_LEVEL"].upper()) # set log level from .env file
 
 FIRST_RECONNECT_DELAY = 1
 RECONNECT_RATE = 2
