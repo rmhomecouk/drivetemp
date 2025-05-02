@@ -4,9 +4,11 @@ import time, os, random, logging, signal, sys
 from paho.mqtt import client as mqtt_client
 from dotenv import dotenv_values
 
-logging.basicConfig(level=logging.WARN)
-
 secrets = dotenv_values(".env")
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+logging.setLevel(secrets["LOG_LEVEL"])
 
 FIRST_RECONNECT_DELAY = 1
 RECONNECT_RATE = 2
