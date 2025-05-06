@@ -11,8 +11,8 @@ logging.getLogger().setLevel(secrets["LOG_LEVEL"].upper()) # set log level from 
 
 stop = False  
 
-sensors0 = secrets['SENSORS0'].split(",") if sys.argv[1] == "0" else secrets['SENSORS1'].split(",") 
-sensors1 = secrets['SENSORS0'].split(",") if sys.argv[1] == "0" else secrets['SENSORS1'].split(",") 
+sensors0 = secrets['SENSORS0'].split(",") # if sys.argv[1] == "0" else secrets['SENSORS1'].split(",") 
+sensors1 = secrets['SENSORS1'].split(",") # if sys.argv[1] == "0" else secrets['SENSORS1'].split(",") 
 
 dt = 10    # time interval between measurement points
 points = 10 # smoothing decay time in points
