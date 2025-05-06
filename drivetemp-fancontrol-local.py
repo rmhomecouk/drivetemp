@@ -40,6 +40,7 @@ if __name__ == "__main__":
            
         if not os.path.exists(outfile_cage0):
             open(outfile_cage0, "w").close()
+        temp = int(open(sensors0[0]).read())
         k = 1. / points
         K = 1 - k
         k = k / len(sensors0)
@@ -55,6 +56,7 @@ if __name__ == "__main__":
             
         if not os.path.exists(outfile_cage1):
             open(outfile_cage1, "w").close()
+        temp = int(open(sensors1[0]).read())
         k = 1. / points
         K = 1 - k
         k = k / len(sensors1)
