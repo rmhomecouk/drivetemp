@@ -1,0 +1,11 @@
+[Unit]
+Description=Send drive cage temperatures via Local Sensors
+
+[Service]
+WorkingDirectory=/opt/drivetemp
+ExecStart=/opt/drivetemp/drivetemp-fancontrol-local.py
+Restart=always
+RestartSec=1s
+
+[Install]
+WantedBy = multi-user.target
