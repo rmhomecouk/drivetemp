@@ -12,6 +12,22 @@ Required the "drivetemp" kernel module to be loaded.
 
 Used to subscribe to the MQTT values and set the temperature for fancontrol in a txt file at /var/tmp
 
+## .env
+
+Configure the variables for MQTT and sensors
+
+```
+MQTT_BROKER="host.mqtt.com"
+MQTT_PORT=1883
+MQTT_USERNAME="username"
+MQTT_PASSWORD="password"
+MQTT_TOPIC="drivetemp"
+SENSORS=""
+SENSORS0="/sys/class/hwmon/hwmon10/temp1_input,/sys/class/hwmon/hwmon11/temp1_input,/sys/class/hwmon/hwmon6/temp1_input,/sys/class/hwmon/hwmon9/temp1_input,/sys/class/hwmon/hwmon12/temp1_input"
+SENSORS1="/sys/class/hwmon/hwmon5/temp1_input,/sys/class/hwmon/hwmon7/temp1_input,/sys/class/hwmon/hwmon8/temp1_input,/sys/class/hwmon/hwmon13/temp1_input,/sys/class/hwmon/hwmon14/temp1_input"
+LOG_LEVEL="DEBUG"
+```
+
 
 ## fancontrol
 
