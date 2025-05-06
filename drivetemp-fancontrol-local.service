@@ -8,4 +8,4 @@ Restart=always
 RestartSec=1s
 
 [Install]
-WantedBy = multi-user.target
+WantedBy = fancontrol.service

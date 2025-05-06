@@ -48,7 +48,7 @@ if __name__ == "__main__":
         for s in sensors0:
             t += int(open(s).read())
         temp = round(temp * K + t * k)
-        logging.info("Temperature: %s", temp)
+        logging.info("Temperature0: %s", temp)
         myfile = open(outfile_cage0,'r+')
         myfile.seek(0)
         myfile.write(str(int(temp)) + "\n\n")
@@ -64,7 +64,7 @@ if __name__ == "__main__":
         for s in sensors1:
             t += int(open(s).read())
         temp = round(temp * K + t * k)
-        logging.info("Temperature: %s", temp)
+        logging.info("Temperature1: %s", temp)
         myfile = open(outfile_cage1,'r+')
         myfile.seek(0)
         myfile.write(str(int(temp)) + "\n\n")
