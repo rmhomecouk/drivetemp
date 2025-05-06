@@ -72,3 +72,13 @@ if __name__ == "__main__":
 
 
     logging.info("Stopping...")
+    
+    myfile = open(outfile_cage0,'r+')
+    myfile.seek(0)
+    myfile.write(str(int(99999)) + "\n\n")
+    myfile.truncate()  
+    
+    myfile = open(outfile_cage1,'r+')
+    myfile.seek(0)
+    myfile.write(str(int(99999)) + "\n\n")
+    myfile.truncate()  
